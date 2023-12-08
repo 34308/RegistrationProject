@@ -1,4 +1,4 @@
-package pl.edu.anstar.recruitment.controller;
+package pl.edu.anstar.registration.controller;
 
 import java.util.Map;
 import io.camunda.zeebe.client.ZeebeClient;
@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import pl.edu.anstar.recruitment.ProcessConstants;
-import pl.edu.anstar.recruitment.TaskListService;
+import pl.edu.anstar.registration.ProcessConstants;
+import pl.edu.anstar.registration.TaskListService;
 
 
 @RestController

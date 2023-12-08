@@ -1,13 +1,12 @@
-package pl.edu.anstar.recruitment;
+package pl.edu.anstar.registration;
 
 import java.sql.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.postgresql.Driver;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import pl.edu.anstar.recruitment.model.CandidateApplication;
+import pl.edu.anstar.registration.model.CandidateApplication;
 
 @Configuration
 @ConfigurationProperties

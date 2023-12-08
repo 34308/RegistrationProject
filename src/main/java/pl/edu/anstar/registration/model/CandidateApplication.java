@@ -1,4 +1,4 @@
-package pl.edu.anstar.recruitment.model;
+package pl.edu.anstar.registration.model;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

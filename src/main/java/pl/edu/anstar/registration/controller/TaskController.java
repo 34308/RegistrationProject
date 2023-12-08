@@ -1,4 +1,4 @@
-package pl.edu.anstar.recruitment.controller;
+package pl.edu.anstar.registration.controller;
 
 import io.camunda.zeebe.client.ZeebeClient;
 import org.slf4j.Logger;
@@ -24,7 +24,7 @@ import io.camunda.tasklist.dto.Task;
 import io.camunda.tasklist.dto.TaskList;
 import io.camunda.tasklist.dto.TaskState;
 import io.camunda.tasklist.exception.TaskListException;
-import pl.edu.anstar.recruitment.TaskListService;
+import pl.edu.anstar.registration.TaskListService;
 
 @RestController
 @RequestMapping("/")

@@ -1,6 +1,6 @@
-package pl.edu.anstar.recruitment;
+package pl.edu.anstar.registration;
 
-import pl.edu.anstar.recruitment.model.Faculty;
+import pl.edu.anstar.registration.model.Faculty;
 import org.json.JSONException;
 import org.json.JSONObject;
 import java.io.BufferedReader;

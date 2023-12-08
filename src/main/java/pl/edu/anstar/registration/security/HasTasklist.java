@@ -1,4 +1,4 @@
-package pl.edu.anstar.recruitment.security;
+package pl.edu.anstar.registration.security;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -8,5 +8,5 @@ import java.lang.annotation.Target;
 
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
-// @TP @PreAuthorize("hasRole('Admin')")
-public @interface IsAdmin {}
+// @TP @PreAuthorize("hasRole('Tasklist')")
+public @interface HasTasklist {}

@@ -1,4 +1,4 @@
-package pl.edu.anstar.recruitment;
+package pl.edu.anstar.registration;
 
 import io.camunda.zeebe.client.api.response.ActivatedJob;
 import io.camunda.zeebe.client.api.worker.JobClient;
@@ -8,9 +8,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.stereotype.Component;
-import pl.edu.anstar.recruitment.mail.anstar.MailTemplate;
-import pl.edu.anstar.recruitment.model.Faculty;
-import pl.edu.anstar.recruitment.model.CandidateApplication;
+import pl.edu.anstar.registration.mail.anstar.MailTemplate;
+import pl.edu.anstar.registration.model.Faculty;
+import pl.edu.anstar.registration.model.CandidateApplication;
 
 import java.util.HashMap;
 import java.util.Map;

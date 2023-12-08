@@ -1,4 +1,4 @@
-package pl.edu.anstar.recruitment.model;
+package pl.edu.anstar.registration.model;
 
 import io.camunda.tasklist.dto.TaskState;
 import java.util.List;

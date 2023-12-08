@@ -1,4 +1,4 @@
-package pl.edu.anstar.recruitment.model;
+package pl.edu.anstar.registration.model;
 
 public class AuthenticationUser {
     private String username;

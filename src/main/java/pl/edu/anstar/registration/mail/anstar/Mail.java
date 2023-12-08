@@ -1,4 +1,4 @@
-package pl.edu.anstar.recruitment.mail.anstar;
+package pl.edu.anstar.registration.mail.anstar;
 
 import java.util.*;
 import javax.activation.*;

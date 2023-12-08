@@ -1,11 +1,7 @@
-package pl.edu.anstar.recruitment.controller;
-
+package pl.edu.anstar.registration.controller;
 import java.util.HashMap;
 import java.util.Map;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MissingRequestHeaderException;
@@ -13,14 +9,15 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
-import pl.edu.anstar.recruitment.exception.TechnicalException;
-import pl.edu.anstar.recruitment.exception.UnauthorizedException;
+import pl.edu.anstar.registration.exception.TechnicalException;
+import pl.edu.anstar.registration.exception.UnauthorizedException;
 
 import org.slf4j.LoggerFactory;
 
-public abstract class Controller {
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
-    @Autowired private HttpServletRequest request;
+public abstract class Controller {
 
     public abstract Logger getLogger();
     private static final Logger LOG = LoggerFactory.getLogger(Controller.class);

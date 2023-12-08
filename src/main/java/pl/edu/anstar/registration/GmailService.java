@@ -1,4 +1,4 @@
-package pl.edu.anstar.recruitment;
+package pl.edu.anstar.registration;
 
 import org.springframework.stereotype.Service;
 import org.slf4j.Logger;

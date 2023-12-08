@@ -1,4 +1,4 @@
-package pl.edu.anstar.recruitment;
+package pl.edu.anstar.registration;
 
 import io.camunda.tasklist.CamundaTaskListClient;
 import io.camunda.tasklist.auth.SaasAuthentication;
@@ -16,7 +16,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import pl.edu.anstar.recruitment.model.Task;
+import pl.edu.anstar.registration.model.Task;
 
 @Service
 public class TaskListService {

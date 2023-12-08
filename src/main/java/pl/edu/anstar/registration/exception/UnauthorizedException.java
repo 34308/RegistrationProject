@@ -1,4 +1,4 @@
-package pl.edu.anstar.recruitment.exception;
+package pl.edu.anstar.registration.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
