@@ -6,9 +6,10 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="recruitment-basic" />
+        <module name="University-Recruitment-1.0" />
         <module name="University-Recruitment-2.0" />
         <module name="RegistrationProject" />
-        <module name="University-Recruitment-1.0" />
       </profile>
     </annotationProcessing>
   </component>
@@ -17,6 +18,7 @@
       <module name="RegistrationProject" options="-parameters" />
       <module name="University-Recruitment-1.0" options="-parameters" />
       <module name="University-Recruitment-2.0" options="-parameters" />
+      <module name="recruitment-basic" options="-parameters" />
     </option>
   </component>
 </project>
