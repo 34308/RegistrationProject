@@ -12,6 +12,9 @@ import org.slf4j.LoggerFactory;
 import pl.edu.anstar.registration.ProcessConstants;
 import pl.edu.anstar.registration.Services.UserTaskHandlerService;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import static io.camunda.zeebe.client.impl.Loggers.LOGGER;
 
 
@@ -31,10 +34,18 @@ public class RecruitmentFormController {
 
         LOG.info("Starting process " + ProcessConstants.BPMN_PROCESS_ID + " with variables: ");
 
+        //Przykładowy obiekt użytkownika z polami z formularza
+        Map<String, Object> userData = new HashMap<>();
+        userData.put("name", "John");
+        userData.put("surname", "Doe");
+        userData.put("password", "zaq123!@K");
+        userData.put("rePassword", "zaq123!@K");
+
         zeebeClient
                 .newCreateInstanceCommand()
                 .bpmnProcessId(ProcessConstants.BPMN_PROCESS_ID)
                 .latestVersion()
+                .variables(userData) //Przesłanie danych
                 .send();
     }
 
