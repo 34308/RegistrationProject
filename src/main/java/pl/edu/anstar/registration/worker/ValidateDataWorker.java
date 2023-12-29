@@ -15,6 +15,12 @@ public class ValidateDataWorker {
     private static final Logger LOGGER = LoggerFactory.getLogger(ValidateDataWorker.class);
     @JobWorker(type = "validateData")
     public void validateData(final JobClient client, final ActivatedJob job) {
+
+        try {
+            Thread.sleep(10000);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
         LOGGER.info("validate data");
     }
 }

@@ -13,6 +13,12 @@ public class VerifyDataWorker {
 
     @JobWorker(type = "verifyData")
     public void verifyData(final JobClient client, final ActivatedJob job) {
+        try {
+
+            Thread.sleep(1000); // Sleep for 10 seconds
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
         LOGGER.info("verify data");
     }
 }

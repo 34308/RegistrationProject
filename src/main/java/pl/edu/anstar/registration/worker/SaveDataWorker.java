@@ -12,6 +12,11 @@ public class SaveDataWorker {
     private static final Logger LOGGER = LoggerFactory.getLogger(SaveDataWorker.class);
     @JobWorker(type = "saveData")
     public void saveData(final JobClient client, final ActivatedJob job) {
-        LOGGER.info("save data");
+
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }LOGGER.info("save data");
     }
 }

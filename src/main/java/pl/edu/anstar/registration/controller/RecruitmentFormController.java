@@ -1,6 +1,7 @@
 package pl.edu.anstar.registration.controller;
 
 import io.camunda.zeebe.client.ZeebeClient;
+import io.camunda.zeebe.spring.client.annotation.JobWorker;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -9,27 +10,32 @@ import org.springframework.web.bind.annotation.RestController;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import pl.edu.anstar.registration.ProcessConstants;
+import pl.edu.anstar.registration.Services.UserTaskHandlerService;
+
+import static io.camunda.zeebe.client.impl.Loggers.LOGGER;
 
 
 @RestController
 @RequestMapping("/")
 public class RecruitmentFormController {
 
-  private static final Logger LOG = LoggerFactory.getLogger(RecruitmentFormController.class);
+    private static final Logger LOG = LoggerFactory.getLogger(RecruitmentFormController.class);
+    private final ZeebeClient zeebeClient;
 
-  @Qualifier("zeebeClientLifecycle")
-  @Autowired
-  private ZeebeClient client;
+    @Autowired
+    public RecruitmentFormController( @Qualifier("zeebeClientLifecycle") ZeebeClient client) {
+        this.zeebeClient = client;
+    }
+    @PostMapping("/start")
+    public void startProcessInstance() {
 
-  @PostMapping("/start")
-  public void startProcessInstance() {
+        LOG.info("Starting process " + ProcessConstants.BPMN_PROCESS_ID + " with variables: ");
 
-    LOG.info("Starting process " + ProcessConstants.BPMN_PROCESS_ID + " with variables: ");
+        zeebeClient
+                .newCreateInstanceCommand()
+                .bpmnProcessId(ProcessConstants.BPMN_PROCESS_ID)
+                .latestVersion()
+                .send();
+    }
 
-    client
-            .newCreateInstanceCommand()
-            .bpmnProcessId(ProcessConstants.BPMN_PROCESS_ID)
-            .latestVersion()
-            .send();
-  }
 }

@@ -12,6 +12,11 @@ public class SendConfirmationEmailWorker {
     private static final Logger LOGGER = LoggerFactory.getLogger(SendConfirmationEmailWorker.class);
     @JobWorker(type = "sendConfirmationEmail")
     public void sendConfirmationEmail(final JobClient client, final ActivatedJob job) {
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
         LOGGER.info("send confirmation email");
     }
 }
