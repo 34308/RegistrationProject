@@ -21,7 +21,7 @@ public class UserTaskHandlerService {
     @ZeebeWorker(type = "io.camunda.zeebe:userTask")
     public void handleJob(final JobClient client, final ActivatedJob job) {
         try {
-            Thread.sleep(10000); // Sleep for 10 seconds
+            Thread.sleep(1000); // Sleep for 10 seconds
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
         }

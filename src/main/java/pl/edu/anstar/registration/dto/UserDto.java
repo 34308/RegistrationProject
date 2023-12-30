@@ -1,23 +1,20 @@
-package pl.edu.anstar.registration.model;
-
-//import lombok.*;
+package pl.edu.anstar.registration.dto;
 
 import lombok.*;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
 
+//Pod baze danych na potem
 @Data
 @Builder(toBuilder = true)
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-@Document("users")
-public class User {
-    @Id
+public class UserDto {
+
     private String id;
     private String name;
     private String surname;
     private String email;
     private String password;
+    private String repeatPassword;
 }
 
