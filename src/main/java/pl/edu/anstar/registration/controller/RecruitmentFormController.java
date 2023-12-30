@@ -12,6 +12,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import pl.edu.anstar.registration.ProcessConstants;
 import pl.edu.anstar.registration.Services.UserTaskHandlerService;
+import pl.edu.anstar.registration.dto.UserDto;
 import pl.edu.anstar.registration.model.User;
 
 import java.util.HashMap;
@@ -32,7 +33,7 @@ public class RecruitmentFormController {
         this.zeebeClient = client;
     }
     @PostMapping("/start")
-    public void startProcessInstance(@RequestBody User user) {
+    public void startProcessInstance(@RequestBody UserDto userDto) {
 
         LOG.info("Starting process " + ProcessConstants.BPMN_PROCESS_ID + " with variables: ");
 
@@ -40,7 +41,7 @@ public class RecruitmentFormController {
                 .newCreateInstanceCommand()
                 .bpmnProcessId(ProcessConstants.BPMN_PROCESS_ID)
                 .latestVersion()
-                .variables(user) //Przesłanie obiektu User
+                .variables(userDto) //Przesłanie obiektu User
                 .send();
     }
 

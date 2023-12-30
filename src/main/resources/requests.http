@@ -2,9 +2,9 @@ POST http://localhost:8080/start
 Content-Type: application/json
 
 {
-  "id": "123",
   "name": "John",
   "surname": "Doe",
   "email": "john@example.com",
-  "password": "weak"
+  "password": "Strong1234!",
+  "repeatPassword": "Strong1234!"
 }

@@ -6,6 +6,7 @@ import io.camunda.zeebe.spring.client.annotation.JobWorker;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
+import pl.edu.anstar.registration.dto.UserDto;
 import pl.edu.anstar.registration.exception.ValidationException;
 import pl.edu.anstar.registration.model.User;
 
@@ -17,26 +18,21 @@ public class ValidateDataWorker {
     @JobWorker(type = "validateData")
     public void validateData(final JobClient client, final ActivatedJob job) {
         try {
-            User user = job.getVariablesAsType(User.class);
+            UserDto userDto = job.getVariablesAsType(UserDto.class);
 
-            if (!validateFields(user)) {
+            if (!validateFields(userDto)) {
                 throw new ValidationException("VALIDATION_FAILED", "Some fields are empty.");
-            } else if (!isPasswordStrong(user.getPassword())) {
+            } else if (!isPasswordStrong(userDto.getPassword())) {
                 throw new ValidationException("VALIDATION_FAILED", "Password doesn't meet our strength requirements.");
             }
-
-            // Do something with the valid data
-
-            client.newCompleteCommand(job.getKey()).send().join();
         } catch (ValidationException e) {
             handleError(client, job, e.getMessage(), e.getErrorMessage());
-        } catch (Exception e) {
-            handleUnknownException(client, job);
         }
     }
 
     private void handleError(JobClient client, ActivatedJob job, String errorCode, String errorMessage) {
         LOGGER.error(errorCode + "," + errorMessage);
+
         client.newThrowErrorCommand(job.getKey())
                 .errorCode(errorCode)
                 .errorMessage(errorMessage)
@@ -44,27 +40,21 @@ public class ValidateDataWorker {
                 .join();
     }
 
-    private void handleUnknownException(JobClient client, ActivatedJob job) {
-        client.newFailCommand(job.getKey())
-                .retries(job.getRetries() - 1)
-                .errorMessage("Unknown error")
-                .send()
-                .join();
-    }
-    private boolean validateFields(User user) {
-        String name = user.getName();
-        String surname = user.getSurname();
-        String email = user.getEmail();
-        String password = user.getPassword();
-        //String rePassword = user.getRePassword();
+    private boolean validateFields(UserDto userDto) {
+        String name = userDto.getName();
+        String surname = userDto.getSurname();
+        String email = userDto.getEmail();
+        String password = userDto.getPassword();
+        String rePassword = userDto.getRepeatPassword();
 
         boolean isNameNotEmpty = name != null && !name.isEmpty();
         boolean isSurnameNotEmpty = surname != null && !surname.isEmpty();
         boolean isEmailNotEmpty = email != null && !email.isEmpty();
         boolean isPasswordNotEmpty = password != null && !password.isEmpty();
-        //boolean doPasswordsMatch = password.equals(rePassword);
+        assert password != null;
+        boolean doPasswordsMatch = password.equals(rePassword);
 
-        return isNameNotEmpty && isSurnameNotEmpty && isPasswordNotEmpty && isEmailNotEmpty;
+        return isNameNotEmpty && isSurnameNotEmpty && isPasswordNotEmpty && isEmailNotEmpty && doPasswordsMatch;
     }
 
     private boolean isPasswordStrong(String password) {
