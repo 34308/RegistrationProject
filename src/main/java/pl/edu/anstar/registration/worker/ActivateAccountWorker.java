@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
+import pl.edu.anstar.registration.model.User;
 
 @Component
 public class ActivateAccountWorker {
@@ -32,6 +33,8 @@ public class ActivateAccountWorker {
     private String clientSecret;
     @JobWorker(type = "activateAccount")
     public void activateAccount(final JobClient client, final ActivatedJob job) throws TaskListException {
+        User user = job.getVariablesAsType(User.class);
         LOGGER.info("activate account");
+        LOGGER.info("User: " + user);
     }
 }

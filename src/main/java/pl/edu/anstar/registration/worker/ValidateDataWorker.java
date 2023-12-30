@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
+import pl.edu.anstar.registration.model.User;
 
 import java.util.Map;
 
@@ -19,41 +20,65 @@ public class ValidateDataWorker {
     @JobWorker(type = "validateData")
     public void validateData(final JobClient client, final ActivatedJob job) {
         try {
-            Map<String, Object> variables = job.getVariablesAsMap();
+            User user = job.getVariablesAsType(User.class);
 
-            //Wyłuskanie zmiennych
-            String name = (String) variables.get("name");
-            String surname = (String) variables.get("surname");
-            String password = (String) variables.get("password");
-            String rePassword = (String) variables.get("rePassword");
-
-            boolean isDataValid = validateUserData(name, surname, password, rePassword);
-
-            if (isDataValid) {
-                LOGGER.info("User data is valid.");
-                client.newCompleteCommand(job.getKey()).send().join();
-            } else {
-                // Regex czy hasło jest silne
-                boolean isPasswordStrong = password.matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@#$%^&+=!])(?=\\S+$).{8,}$");
-                if (!isPasswordStrong) {
-                    LOGGER.warn("Password does not meet strength requirements.");
-                } else {
-                    LOGGER.warn("User data is invalid.");
-                }
-                client.newFailCommand(job.getKey()).retries(job.getRetries() - 1).errorMessage("Invalid user data").send().join();
+            if (!validateFields(user)) {
+                LOGGER.error("Some fields are empty.");
+                client.newFailCommand(job.getKey())
+                        .retries(job.getRetries() - 1)
+                        .errorMessage("Some fields are empty.")
+                        .send()
+                        .join();
+                throw new FieldEmptyException("Some fields are empty.");
+            } else if(!isPasswordStrong(user.getPassword())){
+                LOGGER.error("Password doesn't meet our strength requirements.");
+                client.newFailCommand(job.getKey())
+                        .retries(job.getRetries() - 1)
+                        .errorMessage("Password doesn't meet our strength requirements.")
+                        .send()
+                        .join();
+                throw new WeakPasswordException("Password doesn't meet our strength requirements.");
             }
         } catch (Exception e) {
             LOGGER.error("Exception occurred during data validation: {}", e.getMessage());
+            client.newFailCommand(job.getKey())
+                    .retries(job.getRetries() - 1)
+                    .errorMessage("Unknown error")
+                    .send()
+                    .join();
         }
     }
 
-    //Sprawdza czy jakieś pola nie są puste
-    private boolean validateUserData(String name, String surname, String password, String rePassword) {
-        boolean isNameValid = name != null && !name.isEmpty();
-        boolean isSurnameValid = surname != null && !surname.isEmpty();
-        boolean isPasswordsMatch = password.equals(rePassword);
+    private boolean validateFields(User user) {
+        String name = user.getName();
+        String surname = user.getSurname();
+        String email = user.getEmail();
+        String password = user.getPassword();
+        //String rePassword = user.getRePassword();
 
-        return isNameValid && isSurnameValid && isPasswordsMatch;
+        boolean isNameNotEmpty = name != null && !name.isEmpty();
+        boolean isSurnameNotEmpty = surname != null && !surname.isEmpty();
+        boolean isEmailNotEmpty = email != null && !email.isEmpty();
+        boolean isPasswordNotEmpty = password != null && !password.isEmpty();
+        //boolean doPasswordsMatch = password.equals(rePassword);
+
+        return isNameNotEmpty && isSurnameNotEmpty && isPasswordNotEmpty && isEmailNotEmpty;
+    }
+
+    private boolean isPasswordStrong(String password) {
+        return password.matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@#$%^&+=!])(?=\\S+$).{8,}$");
+    }
+    public static class FieldEmptyException extends RuntimeException {
+        public FieldEmptyException(String message) {
+            super(message);
+        }
+    }
+
+    public static class WeakPasswordException extends RuntimeException {
+        public WeakPasswordException(String message) {
+            super(message);
+        }
     }
 }
+
 
