@@ -19,4 +19,8 @@ public class UserService {
     public User saveUser(UserDto userDto) {
         return userRepository.save(userMapper.toEntity(userDto));
     }
+
+    public boolean userWithThisEmailExists(String email) {
+        return userRepository.existsByEmail(email);
+    }
 }
