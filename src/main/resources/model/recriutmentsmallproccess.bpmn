@@ -206,10 +206,10 @@
       <sequenceFlow id="Flow_0r4erx9" sourceRef="Event_0lg8510" targetRef="Gateway_128euh8" />
       <sequenceFlow id="Flow_01d9k2f" sourceRef="Gateway_128euh8" targetRef="Event_0ul9jrt" />
     </subProcess>
-    <boundaryEvent id="sid-1E15318F-8269-4982-A0B9-809B8E6386E0" name="After 2 weeks" attachedToRef="verify-account">
+    <boundaryEvent id="sid-1E15318F-8269-4982-A0B9-809B8E6386E0" name="After 20 seconds" attachedToRef="verify-account">
       <outgoing>Flow_0meln2j</outgoing>
       <timerEventDefinition id="TimerEventDefinition_0zg2xjb">
-        <timeDuration xsi:type="tFormalExpression">P2W</timeDuration>
+        <timeDuration xsi:type="tFormalExpression">PT20S</timeDuration>
       </timerEventDefinition>
     </boundaryEvent>
     <sequenceFlow id="Flow_0meln2j" sourceRef="sid-1E15318F-8269-4982-A0B9-809B8E6386E0" targetRef="sid-8CC6111A-BFF5-476A-A3AC-6B2B57E1C946" />

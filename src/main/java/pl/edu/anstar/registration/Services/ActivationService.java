@@ -56,12 +56,9 @@ public class ActivationService {
         activationKeyRepository.deleteByValue(activationKey);
     }
 
-    public boolean checkIfAccountActive(String email) {
-       Optional<User> userToCheckOptional = userRepository.findByEmail(email);
-       if (userToCheckOptional.isEmpty()) {
-           return false;
-       }
-       User userToCheck = userToCheckOptional.get();
-       return userToCheck.isActive() && !activationKeyRepository.existsById(userToCheck.getId());
+    public void deleteInactiveAccount(String email) {
+        User userToDelete = userRepository.findByEmail(email).orElseThrow();
+        userRepository.deleteById(userToDelete.getId());
+        activationKeyRepository.deleteById(userToDelete.getId());
     }
 }
