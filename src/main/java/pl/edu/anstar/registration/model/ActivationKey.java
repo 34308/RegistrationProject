@@ -1,9 +1,8 @@
 package pl.edu.anstar.registration.model;
 
-//import lombok.*;
-
 import lombok.*;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Data
@@ -11,14 +10,10 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-@Document("users")
-public class User {
+@Document("accountKeys")
+public class ActivationKey {
     @Id
-    private String id;
-    private String name;
-    private String surname;
-    private String email;
-    private String password;
-    private boolean isActive = false;
+    private String userId;
+    @Indexed(unique = true)
+    private String value;
 }
-

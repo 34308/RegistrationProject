@@ -1,3 +1,4 @@
+# Służy do rozpoczynania procesu rejestracji użytkownika
 POST http://localhost:8080/start
 Content-Type: application/json
 
@@ -8,3 +9,8 @@ Content-Type: application/json
   "password": "Strong1234!",
   "repeatPassword": "Strong1234!"
 }
+
+###
+
+# Służy do aktywowania konta. Zamieniniać na link aktywacyjny wyświetlany na konsoli po utworzeniu konta
+GET http://localhost:8080/activate?k="HU3ExC1qHNW/JeXcKL3sB/vi+PUZ4r/yEjXPy8k6WT0="
