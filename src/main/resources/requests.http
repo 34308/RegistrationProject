@@ -5,7 +5,7 @@ Content-Type: application/json
 {
   "name": "John",
   "surname": "Doe",
-  "email": "john@example.com",
+  "email": "kamil_martyka_wrz@wp.pl",
   "password": "Strong1234!",
   "repeatPassword": "Strong1234!"
 }
